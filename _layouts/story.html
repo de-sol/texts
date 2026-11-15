@@ -1,0 +1,30 @@
+---
+layout: default
+---
+{%- assign work = site.data.works | where: "id", page.work | first -%}
+{%- assign chapters = site.stories | where: "work", page.work | sort: "num" -%}
+{%- for c in chapters -%}
+  {%- if c.url == page.url -%}
+    {%- unless forloop.first -%}{%- assign i = forloop.index0 | minus: 1 -%}{%- assign prev = chapters[i] -%}{%- endunless -%}
+    {%- unless forloop.last -%}{%- assign i = forloop.index0 | plus: 1 -%}{%- assign next = chapters[i] -%}{%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- capture label -%}{% if page.label %}{{ page.label }}{% else %}{% if page.num < 10 %}0{% endif %}{{ page.num }}{% endif %}{%- endcapture -%}
+{%- capture nav -%}
+<nav class="pager">
+  {% if prev %}<a href="{{ prev.url | relative_url }}">前へ</a>{% else %}<span class="off">前へ</span>{% endif %}
+  <a href="{{ '/' | relative_url }}#{{ page.work }}">トップ</a>
+  {% if next %}<a href="{{ next.url | relative_url }}">次へ</a>{% else %}<span class="off">次へ</span>{% endif %}
+</nav>
+{%- endcapture -%}
+{{ nav }}
+<article>
+  <header class="story-head">
+    <p class="work-name">{{ work.title }}</p>
+    <h1><span class="num">{{ label }}</span>{% if page.title %} {{ page.title }}{% endif %}</h1>
+  </header>
+  <div class="body">
+{{ content }}
+  </div>
+</article>
+{{ nav }}

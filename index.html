@@ -1,0 +1,20 @@
+---
+layout: default
+---
+<header class="site-head">
+  <h1>{{ site.title }}</h1>
+  {% if site.description %}<p>{{ site.description }}</p>{% endif %}
+</header>
+
+{% for work in site.data.works %}
+{%- assign chapters = site.stories | where: "work", work.id | sort: "num" -%}
+<section class="work" id="{{ work.id }}">
+  <h2>{{ work.title }}</h2>
+  {% if work.description %}<p class="desc">{{ work.description }}</p>{% endif %}
+  <ul class="chapters">
+  {%- for c in chapters %}
+    <li><a href="{{ c.url | relative_url }}"><span class="num">{% if c.label %}{{ c.label }}{% else %}{% if c.num < 10 %}0{% endif %}{{ c.num }}{% endif %}</span>{% if c.title %} {{ c.title }}{% endif %}</a></li>
+  {%- endfor %}
+  </ul>
+</section>
+{% endfor %}

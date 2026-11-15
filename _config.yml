@@ -1,0 +1,20 @@
+# ── サイト設定 ──────────────────────────
+title: Texts|クローヴィス
+description: 
+lang: ja
+
+# true にすると全ページに「検索エンジンに載せない」指定が入ります
+noindex: true
+
+# ── 以下は基本的に触らなくて大丈夫です ──
+collections:
+  stories:
+    output: true
+    permalink: /:path/
+defaults:
+  - scope: { type: stories }
+    values: { layout: story }
+kramdown:
+  input: GFM
+  hard_wrap: true   # 原稿の改行をそのまま改行として表示
+exclude: [README.md]
