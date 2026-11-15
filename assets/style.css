@@ -1,7 +1,8 @@
 /* ── 色と書体はここだけ変えれば全体に反映されます ── */
 :root {
   color-scheme: light; /* 端末がダークモードでも明るい表示に固定 */
-  --bg: #f7f8fa;        /* 地色:わずかに青みのある白 */
+  --bg: #e3e7ec;        /* 外側の背景:青みのある淡いグレー */
+  --paper: #fbfbfc;     /* 本文の台紙:ほぼ白 */
   --text: #23272e;      /* 文字:真っ黒を避けた濃紺寄りの墨 */
   --sub: #6b7280;       /* 補助文字 */
   --line: #dde1e7;      /* 罫線 */
@@ -18,7 +19,11 @@ body {
   font-family: var(--font); font-size: 17px; line-height: 2;
   letter-spacing: .04em; font-feature-settings: "palt" 0;
 }
-.wrap { max-width: 40em; margin: 0 auto; padding: 3.5rem 1.4rem 5rem; }
+.wrap {
+  max-width: calc(40em + 7rem); min-height: 100vh; margin: 0 auto;
+  padding: 3.5rem 3.5rem 5rem; background: var(--paper);
+  box-shadow: 0 0 24px rgba(40, 50, 70, .08);
+}
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .num { font-variant-numeric: tabular-nums; }
@@ -40,6 +45,8 @@ a:hover { text-decoration: underline; }
 .story-head .work-name { color: var(--sub); font-size: .85rem; margin: 0; }
 .story-head h1 { font-size: 1.35rem; font-weight: 600; margin: .3rem 0 0; line-height: 1.6; }
 .body { margin-bottom: 4rem; overflow-wrap: anywhere; line-break: strict; }
+/* 行末に1〜2文字だけ残るのを避ける(対応ブラウザのみ有効) */
+.body p, .work .desc, .story-head h1 { text-wrap: pretty; }
 .body p { margin: 0 0 2em; }             /* 空行1つ=1行分のあき */
 .body img { display: block; max-width: 100%; height: auto; margin: 2.5em auto; }
 .body hr { border: 0; text-align: center; margin: 3em 0; }
@@ -48,5 +55,5 @@ a:hover { text-decoration: underline; }
 
 @media (max-width: 480px) {
   body { font-size: 16px; line-height: 1.95; }
-  .wrap { padding: 2.2rem 1.2rem 4rem; }
+  .wrap { padding: 2.2rem 1.2rem 4rem; box-shadow: none; }
 }
